@@ -1,6 +1,6 @@
 
 const UserLoginHandler = (app, db) => {
-  app.post("/api/login/usr", (req, res) => {
+  app.post("/login/usr", (req, res) => {
     //variables
     const userUserName = req.body.userUserName;
     const userPassword = req.body.userPassword;

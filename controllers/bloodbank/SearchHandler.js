@@ -1,6 +1,6 @@
 //module export
 const SearchHandler = (app, db) => {
-  app.post("/api/home/search", (req, res) => {
+  app.post("/home/search", (req, res) => {
     //variables
     const blood = req.body.blood;
     const place = req.body.place;

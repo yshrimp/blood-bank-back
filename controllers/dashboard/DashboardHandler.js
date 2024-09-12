@@ -1,6 +1,6 @@
 
 const DashboardHandler = (app, db) => {
-  app.get("/api/home", (req, res) => {
+  app.get("/home", (req, res) => {
     //query
     const sqlSelect = "SELECT * from blood_stocks;";
 

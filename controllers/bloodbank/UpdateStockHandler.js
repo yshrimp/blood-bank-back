@@ -1,6 +1,6 @@
 //module export
 const UpdateStockHandler = (app, db) => {
-  app.get("/api/login/emp/ub", (req, res) => {
+  app.get("/login/emp/ub", (req, res) => {
     //query
     const sqlSelect = "SELECT * FROM blood_stocks;";
 
@@ -13,7 +13,7 @@ const UpdateStockHandler = (app, db) => {
     });
   });
 
-  app.put("/api/login/emp/ub/update", (req, res) => {
+  app.put("/login/emp/ub/update", (req, res) => {
     //variables
     const unitUpdate = req.body.unitUpdate;
     const b_id = req.body.b_id;

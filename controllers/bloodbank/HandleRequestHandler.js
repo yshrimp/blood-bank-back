@@ -1,5 +1,5 @@
 const HandleRequestHandler = (app, db) => {
-  app.get("/api/login/emp/hr", (req, res) => {
+  app.get("/login/emp/hr", (req, res) => {
     //query
     const sqlSelect = "SELECT * FROM user_request";
 
@@ -14,7 +14,7 @@ const HandleRequestHandler = (app, db) => {
     });
   });
 
-  app.delete("/api/login/emp/hr/:req_id", (req, res) => {
+  app.delete("/login/emp/hr/:req_id", (req, res) => {
     //variables
     const req_id = req.params.req_id;
 

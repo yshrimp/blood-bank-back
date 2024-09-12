@@ -1,6 +1,6 @@
 //module export
 const UserRegisterHandler = (app, db) => {
-  app.post("/api/reg/usr", (req, res) => {
+  app.post("/reg/usr", (req, res) => {
     //variables
     const userFName = req.body.userFName;
     const userAge = req.body.userAge;

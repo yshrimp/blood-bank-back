@@ -2,7 +2,7 @@
 
 //module export
 const EmployeeRegisterHandler = (app, db) => {
-  app.post("/api/reg/emp", (req, res) => {
+  app.post("/reg/emp", (req, res) => {
     //variables
     const empName = req.body.empName;
     const empMail = req.body.empMail;

@@ -1,6 +1,6 @@
 ///module export
 const RequestClassHandler = (app, db) => {
-  app.post("/api/request", (req, res) => {
+  app.post("/request", (req, res) => {
     const blood_group = req.body.blood_group;
     const unit = req.body.unit;
 
