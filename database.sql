@@ -1,5 +1,12 @@
 USE bbms;
 
+CREATE USER 'new_username'@'%' IDENTIFIED BY 'new_password';
+GRANT ALTER, CREATE, DELETE, DROP, INDEX, INSERT, SELECT, UPDATE, 
+      CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, 
+      EXECUTE, EVENT, TRIGGER, LOCK TABLES 
+ON *.* TO 'bbms'@'%';
+
+
 -- Creating the user_details table
 CREATE TABLE `user_details` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
