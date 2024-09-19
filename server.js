@@ -91,6 +91,11 @@ const getSecret = async (secretName) => {
       UpdateBlood(app, db);
       SearchHandler(app, db);
 
+      // Health check endpoint
+      app.get('/health', (req, res) => {
+        res.status(200).send('Healthy');
+      });      
+
       // 서버 리스닝
       app.listen(3001, (err) => {
         if (err) throw err;
