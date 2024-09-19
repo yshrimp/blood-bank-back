@@ -443,7 +443,7 @@ Resources:
     Properties:
       IpProtocol: tcp
       Description: HTTP for front container
-      FromPort: 3000
+      FromPort: 3001
       GroupId:
         Fn::GetAtt:
           - SgInternal
@@ -452,9 +452,9 @@ Resources:
         Fn::GetAtt:
           - SgFrontContainer
           - GroupId
-      ToPort: 3000
+      ToPort: 3001
   ## Internal LB -> Back Container
-  sbcntrSgContainerFromSgInternal:
+  SgContainerFromSgInternal:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
       IpProtocol: tcp
@@ -523,7 +523,7 @@ Resources:
     Properties:
       IpProtocol: tcp
       Description: HTTP for management server
-      FromPort: 3000
+      FromPort: 3001
       GroupId:
         Fn::GetAtt:
           - SgInternal
@@ -532,7 +532,7 @@ Resources:
         Fn::GetAtt:
           - SgManagement
           - GroupId
-      ToPort: 3000
+      ToPort: 3001
 
   ### Back container -> VPC endpoint
   SgVpceFromSgContainerTCP:
