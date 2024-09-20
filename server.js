@@ -15,8 +15,8 @@ import RequestClassHandler from './controllers/bloodbank/RequestClassHandler.js'
 
 
 //employee function handlers
-import EmployeeLoginHandler from './controllers/employee/EmployeeLoginHandler.js';
-import EmployeeRegisterHandler from './controllers/employee/EmployeeRegisterHandler.js';
+// import EmployeeLoginHandler from './controllers/employee/EmployeeLoginHandler.js';
+// import EmployeeRegisterHandler from './controllers/employee/EmployeeRegisterHandler.js';
 import UpdateBlood from './controllers/bloodbank/UpdateStockHandler.js'
 import UpdateHealthHandler from './controllers/bloodbank/UpdateHealthHandler.js';
 import HandleRequestHandler from './controllers/bloodbank/HandleRequestHandler.js';
@@ -81,8 +81,8 @@ const getSecret = async (secretName) => {
       RequestClassHandler(app, db);
 
       // employee functionalities
-      EmployeeRegisterHandler(app, db);
-      EmployeeLoginHandler(app, db);
+      // EmployeeRegisterHandler(app, db);
+      // EmployeeLoginHandler(app, db);
       UpdateHealthHandler(app, db);
       HandleRequestHandler(app, db);
 
