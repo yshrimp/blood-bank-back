@@ -59,24 +59,39 @@ const getSecret = async (secretName) => {
 (async () => {
   try {
     // AWS Secrets Manager에서 설정한 비밀 이름
-    const secretName = "bbms/mysql";  // AWS Secrets Manager에 저장한 비밀 이름
+    const secretName = "bbms/mysql1";  // AWS Secrets Manager에 저장한 비밀 이름
     const secret = await getSecret(secretName);
 
-    // MySQL 연결 설정
+    // AWS RDS MySQL 연결 설정
     var db = mysql.createConnection({
       host: secret.host,
       user: secret.username,
       password: secret.password,
       database: secret.dbname,
     });
-
+    
+    // IDC MySQL 연결 설정
+    var idcDb = mysql.createConnection({
+      host: '10.1.1.100',  // IDC MySQL 서버 IP
+      user: secret.username,  // 동일한 사용자명 사용 또는 변경
+      password: secret.password,  // 동일한 비밀번호 사용 또는 변경
+      database: secret.dbname,  // 동일한 데이터베이스 사용 또는 변경
+    });
+    idcDb.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to the IDC database!");
+    
+      // IDC MySQL 연결을 사용하여 UserRegisterHandler 호출
+      UserRegisterHandler(app, idcDb);
+    });
+    
     db.connect((err) => {
       if (err) throw err;
-      console.log("Connected to the database!");
+      console.log("Connected to the RDS database!");
 
       // 이후 라우팅 및 핸들러 등록
       // user functionalities
-      UserRegisterHandler(app, db);
+      // UserRegisterHandler(app, db);
       UserLoginHandler(app, db);
       RequestClassHandler(app, db);
 
