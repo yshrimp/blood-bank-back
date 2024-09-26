@@ -43,24 +43,24 @@ CREATE TABLE `user_health` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Creating the emp_details table
-CREATE TABLE `emp_details` (
-  `emp_id` INT NOT NULL AUTO_INCREMENT,
-  `empName` VARCHAR(45) NOT NULL,
-  `empMail` VARCHAR(45) NOT NULL,
-  `empPhone` VARCHAR(12) NOT NULL,
-  `empAddress` VARCHAR(70) NOT NULL,
-  PRIMARY KEY (`emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- CREATE TABLE `emp_details` (
+--   `emp_id` INT NOT NULL AUTO_INCREMENT,
+--   `empName` VARCHAR(45) NOT NULL,
+--   `empMail` VARCHAR(45) NOT NULL,
+--   `empPhone` VARCHAR(12) NOT NULL,
+--   `empAddress` VARCHAR(70) NOT NULL,
+--   PRIMARY KEY (`emp_id`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Creating the emp_login table
-CREATE TABLE `emp_login` (
-  `emp_id` INT NOT NULL,
-  `userName` VARCHAR(15) NOT NULL,
-  `password` VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`emp_id`),
-  UNIQUE KEY `userName_UNIQUE` (`userName`),
-  CONSTRAINT `emp_login_id` FOREIGN KEY (`emp_id`) REFERENCES `emp_details` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- -- -- Creating the emp_login table
+-- CREATE TABLE `emp_login` (
+--   `emp_id` INT NOT NULL,
+--   `userName` VARCHAR(15) NOT NULL,
+--   `password` VARCHAR(15) NOT NULL,
+--   PRIMARY KEY (`emp_id`),
+--   UNIQUE KEY `userName_UNIQUE` (`userName`),
+--   CONSTRAINT `emp_login_id` FOREIGN KEY (`emp_id`) REFERENCES `emp_details` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Creating the blood_stocks table
 CREATE TABLE `blood_stocks` (
@@ -81,19 +81,19 @@ CREATE TABLE `user_request` (
   CONSTRAINT `user_id_request` FOREIGN KEY (`user_id`) REFERENCES `user_details` (`user_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Inserting dummy data into the emp_details table
-INSERT INTO `emp_details` (`emp_id`, `empName`, `empMail`, `empPhone`, `empAddress`) VALUES 
-(1, 'Anand', 'anand123@gmail.com', '9854765214', 'Kannur'),
-(2, 'Arya', 'arya199@hotmail.com', '9644712385', 'Kannur'),
-(3, 'Revathi', 'rev23@gmail.com', '6282478945', 'Kozhikode'),
-(4, 'Sanoop', 'san00p92@gmail.com', '9447545896', 'Kasargode');
+-- -- Inserting dummy data into the emp_details table
+-- INSERT INTO `emp_details` (`emp_id`, `empName`, `empMail`, `empPhone`, `empAddress`) VALUES 
+-- (1, 'Anand', 'anand123@gmail.com', '9854765214', 'Kannur'),
+-- (2, 'Arya', 'arya199@hotmail.com', '9644712385', 'Kannur'),
+-- (3, 'Revathi', 'rev23@gmail.com', '6282478945', 'Kozhikode'),
+-- (4, 'Sanoop', 'san00p92@gmail.com', '9447545896', 'Kasargode');
 
--- Inserting details into the emp_login table
-INSERT INTO `emp_login` (`emp_id`, `userName`, `password`) VALUES 
-(1, 'anand', 'anand@123'),
-(2, 'arya', 'arya@123'),
-(3, 'revathi', 'revathi@123'),
-(4, 'sanoop', 'sanoop@123');
+-- -- Inserting details into the emp_login table
+-- INSERT INTO `emp_login` (`emp_id`, `userName`, `password`) VALUES 
+-- (1, 'anand', 'anand@123'),
+-- (2, 'arya', 'arya@123'),
+-- (3, 'revathi', 'revathi@123'),
+-- (4, 'sanoop', 'sanoop@123');
 
 -- Inserting some dummy data into the user_details table
 INSERT INTO `user_details` (`user_id`, `userFName`, `userAge`, `userGender`, `userBloodGroup`, `userPhone`, `userMail`, `userPlace`) VALUES 
@@ -134,3 +134,20 @@ INSERT INTO `user_login` (`user_id`, `userUserName`, `userPassword`) VALUES
 -- Adding dummy data to the user_health table
 INSERT INTO `user_health` (`user_id`) VALUES 
 (1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12), (13), (14), (15);
+
+INSERT INTO `blood_stocks` (`blood_group`, `unit`) VALUES
+('O+ve', (SELECT COUNT(*) FROM user_details WHERE userBloodGroup = 'O+ve')),
+('B-ve', (SELECT COUNT(*) FROM user_details WHERE userBloodGroup = 'B-ve')),
+('B+ve', (SELECT COUNT(*) FROM user_details WHERE userBloodGroup = 'B+ve')),
+('AB-ve', (SELECT COUNT(*) FROM user_details WHERE userBloodGroup = 'AB-ve')),
+('A+ve', (SELECT COUNT(*) FROM user_details WHERE userBloodGroup = 'A+ve')),
+('A-ve', (SELECT COUNT(*) FROM user_details WHERE userBloodGroup = 'A-ve')),
+('Pnull', (SELECT COUNT(*) FROM user_details WHERE userBloodGroup = 'Pnull'));
+
+-- -- blood_stocks 테이블을 동적으로 채우기 (user_details 기반)
+-- INSERT INTO blood_stocks (blood_group, unit)
+-- SELECT userBloodGroup, COUNT(*) 
+-- FROM user_details
+-- GROUP BY userBloodGroup
+-- ON DUPLICATE KEY UPDATE unit = VALUES(unit);
+
