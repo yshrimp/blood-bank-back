@@ -71,7 +71,7 @@ const UserRegisterHandler = (app, db) => {
                       }
                     });
                   } else {
-                    //res.send({ message: "User Registration Successfull!" });
+                    res.send({ message: "User Registration Successfull!" });
                     console.log("**USER REGISTRATION SUCCESSFULL**");
                   }
                 });
@@ -86,50 +86,3 @@ const UserRegisterHandler = (app, db) => {
 
 
 export default UserRegisterHandler;
-
-// //module export
-// const UserRegisterHandler = (app, db) => {
-//   app.post("/reg/usr", (req, res) => {
-//     //variables
-//     const userFName = req.body.userFName;
-//     const userAge = req.body.userAge;
-//     const userGender = req.body.userGender;
-//     const userBloodGroup = req.body.userBloodGroup;
-//     const userPhone = req.body.userPhone;
-//     const userMail = req.body.userMail;
-//     const userPlace = req.body.userPlace;
-
-//     //query
-//     const sqlInsert1 =
-//       "INSERT INTO user_details (userFName,userAge,userGender,userBloodGroup,userPhone,userMail,userPlace) VALUES (?,?,?,?,?,?,?)";
-
-//     const sqlInsert3 = "INSERT INTO user_health (user_id) VALUES(?)";
-
-//     // Insert user details into user_details table
-//     db.query(
-//       sqlInsert1,
-//       [userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace],
-//       (err, result) => {
-//         if (err) {
-//           console.log(err + " **ERROR INSERTING USER** ");
-//           res.status(500).send({ message: "Error inserting user details" });
-//         } else {
-//           const user_id = result.insertId; // Get the inserted user's ID
-          
-//           // Insert user health info into user_health table
-//           db.query(sqlInsert3, [user_id], (err, result1) => {
-//             if (err) {
-//               console.log(err + "**ERROR INSERTING TO USER-HEALTH**");
-//               res.status(500).send({ message: "Error inserting user health info" });
-//             } else {
-//               console.log("**USER REGISTRATION SUCCESSFUL**");
-//               res.send({ message: "User registration successful!" });
-//             }
-//           });
-//         }
-//       }
-//     );
-//   });
-// };
-
-// export default UserRegisterHandler;
