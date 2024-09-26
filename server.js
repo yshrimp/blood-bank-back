@@ -56,6 +56,7 @@ const getSecret = async (secretName) => {
 };
 
 // 서버 시작 시 Secrets Manager에서 DB 연결 정보 가져오기
+// 서버 시작 시 Secrets Manager에서 DB 연결 정보 가져오기
 (async () => {
   try {
     // AWS Secrets Manager에서 설정한 비밀 이름
@@ -71,19 +72,19 @@ const getSecret = async (secretName) => {
     });
     
     // IDC MySQL 연결 설정
-    var idcDb = mysql.createConnection({
-      host: '10.1.1.100',  // IDC MySQL 서버 IP
-      user: secret.username,  // 동일한 사용자명 사용 또는 변경
-      password: secret.password,  // 동일한 비밀번호 사용 또는 변경
-      database: secret.dbname,  // 동일한 데이터베이스 사용 또는 변경
-    });
-    idcDb.connect((err) => {
-      if (err) throw err;
-      console.log("Connected to the IDC database!");
+    // var idcDb = mysql.createConnection({
+    //   host: 'dbsrv.idcseoul.internal',  // IDC MySQL 서버 DNS
+    //   user: secret.username,  // 동일한 사용자명 사용 또는 변경
+    //   password: secret.password,  // 동일한 비밀번호 사용 또는 변경
+    //   database: secret.dbname,  // 동일한 데이터베이스 사용 또는 변경
+    // });
+    // idcDb.connect((err) => {
+    //   if (err) throw err;
+    //   console.log("Connected to the IDC database!");
     
-      // IDC MySQL 연결을 사용하여 UserRegisterHandler 호출
-      UserRegisterHandler(app, idcDb);
-    });
+    //   // IDC MySQL 연결을 사용하여 UserRegisterHandler 호출
+    //   UserRegisterHandler(app, idcDb);
+    // });
     
     db.connect((err) => {
       if (err) throw err;
@@ -91,7 +92,7 @@ const getSecret = async (secretName) => {
 
       // 이후 라우팅 및 핸들러 등록
       // user functionalities
-      // UserRegisterHandler(app, db);
+      UserRegisterHandler(app, db);
       UserLoginHandler(app, db);
       RequestClassHandler(app, db);
 
