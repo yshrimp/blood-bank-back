@@ -1,5 +1,3 @@
-
-
 import mysql from 'mysql'
 import express from 'express'
 import bodyParser from 'body-parser';
