@@ -87,13 +87,9 @@
 
 // export default UserRegisterHandler;
 
-//module export
 const UserRegisterHandler = (app, db) => {
   app.post("/reg/usr", (req, res) => {
-    // Cognito에서 받은 username (Cognito에서 생성된 user ID or username)
-    const userUserName = req.body.userUserName;
-
-    // 추가 정보
+    // 받은 데이터
     const userFName = req.body.userFName;
     const userAge = req.body.userAge;
     const userGender = req.body.userGender;
@@ -102,21 +98,23 @@ const UserRegisterHandler = (app, db) => {
     const userMail = req.body.userMail;
     const userPlace = req.body.userPlace;
 
-    // 데이터베이스에 저장하는 SQL 쿼리
-    const sql = `
-      INSERT INTO user_details (userUserName, userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    // Step 1: user_details 테이블에 추가 정보 저장
+    const sql1 = `
+      INSERT INTO user_details (userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(sql, [userUserName, userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace], (err, result) => {
+    db.query(sql1, [userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace], (err, result) => {
       if (err) {
-        console.error('Error saving user info:', err);
-        res.status(500).send('Error saving user info');
-      } else {
-        res.status(200).send('User info saved successfully');
+        console.error('Error saving user details:', err);
+        res.status(500).send('Error saving user details');
+        return;
       }
+
+      res.status(200).send('User registration successful');
     });
   });
 };
 
-module.exports = UserRegisterHandler;
+export default UserRegisterHandler;
+

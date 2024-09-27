@@ -21,15 +21,15 @@ CREATE TABLE `user_details` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Creating the user_login table
-CREATE TABLE `user_login` (
-  `user_id` INT NOT NULL,
-  `userUserName` VARCHAR(15) NOT NULL,
-  `userPassword` VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`user_id`, `userUserName`),
-  UNIQUE KEY `userUserName_UNIQUE` (`userUserName`),
-  CONSTRAINT `user_login_id` FOREIGN KEY (`user_id`) REFERENCES `user_details` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- -- Creating the user_login table
+-- CREATE TABLE `user_login` (
+--   `user_id` INT NOT NULL,
+--   `userUserName` VARCHAR(15) NOT NULL,
+--   `userPassword` VARCHAR(15) NOT NULL,
+--   PRIMARY KEY (`user_id`, `userUserName`),
+--   UNIQUE KEY `userUserName_UNIQUE` (`userUserName`),
+--   CONSTRAINT `user_login_id` FOREIGN KEY (`user_id`) REFERENCES `user_details` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Creating the user_health table
 CREATE TABLE `user_health` (
@@ -113,23 +113,23 @@ INSERT INTO `user_details` (`user_id`, `userFName`, `userAge`, `userGender`, `us
 (14, 'Zidan', 30, 'M', 'B+ve', 6821478596, 'mzidan@gmail.com', 'Payyanur'),
 (15, 'Akshay', 32, 'M', 'B+ve', 9685745219, 'akshayaj@gmail.com', 'Payyanur');
 
--- Inserting dummy data into the user_login table
-INSERT INTO `user_login` (`user_id`, `userUserName`, `userPassword`) VALUES 
-(1, 'ron', 'ron@123'),
-(2, 'sajan', 'sajan@123'),
-(3, 'sheethal', 'sheethal@123'),
-(4, 'anirudh', 'anirudh@123'),
-(5, 'arathi', 'arathi@123'),
-(6, 'ajoy', 'ajoy@123'),
-(7, 'shreya', 'shreya@123'),
-(8, 'rajan', 'rajan@123'),
-(9, 'manohar', 'manohar@123'),
-(10, 'anaina', 'anaina@123'),
-(11, 'arundathi', 'arundathi@123'),
-(12, 'lakshmi', 'lakshmi@123'),
-(13, 'akash', 'akash@123'),
-(14, 'zidan', 'zidan@123'),
-(15, 'akshay', 'akshay@123');
+-- -- Inserting dummy data into the user_login table
+-- INSERT INTO `user_login` (`user_id`, `userUserName`, `userPassword`) VALUES 
+-- (1, 'ron', 'ron@123'),
+-- (2, 'sajan', 'sajan@123'),
+-- (3, 'sheethal', 'sheethal@123'),
+-- (4, 'anirudh', 'anirudh@123'),
+-- (5, 'arathi', 'arathi@123'),
+-- (6, 'ajoy', 'ajoy@123'),
+-- (7, 'shreya', 'shreya@123'),
+-- (8, 'rajan', 'rajan@123'),
+-- (9, 'manohar', 'manohar@123'),
+-- (10, 'anaina', 'anaina@123'),
+-- (11, 'arundathi', 'arundathi@123'),
+-- (12, 'lakshmi', 'lakshmi@123'),
+-- (13, 'akash', 'akash@123'),
+-- (14, 'zidan', 'zidan@123'),
+-- (15, 'akshay', 'akshay@123');
 
 -- Adding dummy data to the user_health table
 INSERT INTO `user_health` (`user_id`) VALUES 
@@ -144,10 +144,4 @@ INSERT INTO `blood_stocks` (`blood_group`, `unit`) VALUES
 ('A-ve', (SELECT COUNT(*) FROM user_details WHERE userBloodGroup = 'A-ve')),
 ('Pnull', (SELECT COUNT(*) FROM user_details WHERE userBloodGroup = 'Pnull'));
 
--- -- blood_stocks 테이블을 동적으로 채우기 (user_details 기반)
--- INSERT INTO blood_stocks (blood_group, unit)
--- SELECT userBloodGroup, COUNT(*) 
--- FROM user_details
--- GROUP BY userBloodGroup
--- ON DUPLICATE KEY UPDATE unit = VALUES(unit);
 
