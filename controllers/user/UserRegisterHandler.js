@@ -87,24 +87,51 @@
 
 // export default UserRegisterHandler;
 
+// const UserRegisterHandler = (app, idcDb) => {
+//   app.post("/reg/usr", (req, res) => {
+//     // 받은 데이터
+//     const userFName = req.body.userFName;
+//     const userAge = req.body.userAge;
+//     const userGender = req.body.userGender;
+//     const userBloodGroup = req.body.userBloodGroup;
+//     const userPhone = req.body.userPhone;
+//     const userMail = req.body.userMail;
+//     const userPlace = req.body.userPlace;
+
+//     // Step 1: user_details 테이블에 추가 정보 저장
+//     const sql1 = `
+//       INSERT INTO user_details (userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace)
+//       VALUES (?, ?, ?, ?, ?, ?, ?)
+//     `;
+
+//     idcDb.query(sql1, [userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace], (err, result) => {
+//       if (err) {
+//         console.error('Error saving user details:', err);
+//         res.status(500).send('Error saving user details');
+//         return;
+//       }
+
+//       res.status(200).send('User registration successful');
+//     });
+//   });
+// };
+
+// export default UserRegisterHandler;
+
+
 const UserRegisterHandler = (app, idcDb) => {
   app.post("/reg/usr", (req, res) => {
     // 받은 데이터
-    const userFName = req.body.userFName;
-    const userAge = req.body.userAge;
-    const userGender = req.body.userGender;
-    const userBloodGroup = req.body.userBloodGroup;
-    const userPhone = req.body.userPhone;
-    const userMail = req.body.userMail;
     const userPlace = req.body.userPlace;
+    const userBloodGroup = req.body.userBloodGroup;
 
-    // Step 1: user_details 테이블에 추가 정보 저장
+    // Step 1: user_details 테이블에 userPlace와 userBloodGroup만 저장
     const sql1 = `
-      INSERT INTO user_details (userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO user_details (userPlace, userBloodGroup)
+      VALUES (?, ?)
     `;
 
-    idcDb.query(sql1, [userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace], (err, result) => {
+    idcDb.query(sql1, [userPlace, userBloodGroup], (err, result) => {
       if (err) {
         console.error('Error saving user details:', err);
         res.status(500).send('Error saving user details');
@@ -117,4 +144,5 @@ const UserRegisterHandler = (app, idcDb) => {
 };
 
 export default UserRegisterHandler;
+
 
