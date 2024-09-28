@@ -87,7 +87,7 @@
 
 // export default UserRegisterHandler;
 
-const UserRegisterHandler = (app, db) => {
+const UserRegisterHandler = (app, idcDb) => {
   app.post("/reg/usr", (req, res) => {
     // 받은 데이터
     const userFName = req.body.userFName;
@@ -104,7 +104,7 @@ const UserRegisterHandler = (app, db) => {
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(sql1, [userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace], (err, result) => {
+    idcDb.query(sql1, [userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace], (err, result) => {
       if (err) {
         console.error('Error saving user details:', err);
         res.status(500).send('Error saving user details');
