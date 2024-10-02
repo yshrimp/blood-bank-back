@@ -1,10 +1,10 @@
-const HandleRequestHandler = (app, db) => {
+const HandleRequestHandler = (app, idcDb) => {
   app.get("/login/emp/hr", (req, res) => {
     //query
     const sqlSelect = "SELECT * FROM user_request";
 
     //
-    db.query(sqlSelect, (err, result) => {
+    idcDb.query(sqlSelect, (err, result) => {
       if (err) {
         console.log("**ERROR**" + err);
       }
@@ -24,7 +24,7 @@ const HandleRequestHandler = (app, db) => {
     const sqlSelect2 = "SELECT * FROM blood_stocks WHERE blood_group=?";
     const sqlUpdate = "UPDATE blood_stocks SET unit=? WHERE blood_group=? ";
     //
-    db.query(sqlSelect1, req_id, (err, result) => {
+    idcDb.query(sqlSelect1, req_id, (err, result) => {
       if (err) {
         console.log("**ERROR1**" + err);
       } else {
@@ -32,7 +32,7 @@ const HandleRequestHandler = (app, db) => {
         var req_blood_group = result[0].blood_group;
         var req_unit = result[0].unit;
         //
-        db.query(sqlSelect2, [req_blood_group], (err, result) => {
+        idcDb.query(sqlSelect2, [req_blood_group], (err, result) => {
           if (err) {
             console.log("**ERROR2**" + err);
           } else {
@@ -41,7 +41,7 @@ const HandleRequestHandler = (app, db) => {
         if(req_unit<=stock_unit){
             var left_unit=stock_unit-req_unit;
             //
-            db.query(sqlUpdate,[left_unit,req_blood_group],(err,result)=>{
+            idcDb.query(sqlUpdate,[left_unit,req_blood_group],(err,result)=>{
                 if(err){
                     console.log("**ERROR3**"+err);
                 }else{
